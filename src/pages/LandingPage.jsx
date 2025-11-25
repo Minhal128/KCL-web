@@ -325,9 +325,45 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-        <div className="w-screen py-10">
+
+        {/* start free trial section */}
+        <div className="w-screen py-10 relative">
           <img src={free_trial} alt="" className="w-full cursor-pointer" />
+
+          {/* Wrapper */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            {/* Lightbox Overlay */}
+            <div className="absolute inset-0 bg-[#112F5A]/80 rounded-lg border border-zinc-400 z-20"></div>
+
+            {/* Card Content */}
+            <div
+              className="relative flex flex-col items-center justify-center gap-4 
+                    py-10 px-2 sm:py-20 sm:px-18 
+                    w-[90vw] sm:w-max 
+                    rounded-lg border border-zinc-400 z-30"
+            >
+              <h3 className="text-xl sm:text-4xl font-semibold text-center">
+                Start your watching today!
+              </h3>
+
+              <p className="text-center text-[#C5DDFF] w-full sm:w-[58%] text-sm sm:text-base">
+                Sign up in seconds, pick your plan, and enjoy unlimited movies,
+                series, and live events on any device — cancel anytime.
+              </p>
+
+              <button
+                className="w-full sm:w-[308px] h-[55px] sm:h-[68px] rounded-[500px] 
+                   bg-[#12B037] text-white text-base sm:text-[21.54px] font-medium 
+                   shadow-[0_11px_29px_0_rgba(20,169,144,0.3)] 
+                   hover:opacity-90 transition-opacity duration-200"
+                onClick={handleBtn}
+              >
+                Start a free trail
+              </button>
+            </div>
+          </div>
         </div>
+
         <footer className="w-screen bg-[#112F5A] py-10 text-white">
           <div className="px-6 lg:px-12">
             <div className="flex flex-col md:flex-row justify-between items-start border-b border-gray-600 pb-10 mb-6">
