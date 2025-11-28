@@ -7,7 +7,7 @@ import { IoMdPerson } from "react-icons/io";
 import moview_bg from "../../assets/auth/moview_bg.png";
 import axios from "axios";
 import { VITE_SERVER } from "../../constants/config.js";
-
+import countries from "../../constants/countries.json";
 import { useUser } from "../../context/UserContext.jsx";
 
 // Assuming these imports are available and correct
@@ -107,15 +107,11 @@ const Step1PersonalInfo = ({ onContinue, data, setData }) => (
             <option value="" disabled className="bg-[#1C365A]">
               Choose your country
             </option>
-            <option value="USA" className="bg-[#1C365A]">
-              United States
-            </option>
-            <option value="CAN" className="bg-[#1C365A]">
-              Canada
-            </option>
-            <option value="UK" className="bg-[#1C365A]">
-              United Kingdom
-            </option>
+            {countries.map((c) => (
+              <option key={c.code} value={c.code}>
+                {c.name}
+              </option>
+            ))}
             {/* Add more countries */}
           </select>
           <BsChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#AECFFF] pointer-events-none" />

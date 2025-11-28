@@ -31,6 +31,7 @@ function App() {
   useEffect(() => {
     fetchUserProfile();
   }, []);
+
   return (
     <>
       <Toaster />
@@ -60,10 +61,7 @@ function App() {
                 path="categories/movie/:id"
                 element={<SingleMoviePage />}
               />
-              <Route
-                path="genre/:genre"
-                element={<TrendingPage />}
-              />
+              <Route path="genre/:genre" element={<TrendingPage />} />
             </Route>
           </Route>
 
