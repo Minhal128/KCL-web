@@ -145,7 +145,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="text-white bg-[#112F5A] w-screen h-screen overflow-y-auto">
+    <div className="text-white bg-[#112F5A] w-screen h-screen overflow-y-auto scroll-smooth">
       <Navbar />
 
       <div className="">
@@ -171,7 +171,9 @@ const LandingPage = () => {
           </button>
           <img src={Dashboard} alt="" />
         </div>
-        <div className="bg-[#112F5A] py-10">
+
+        {/* Features */}
+        <div id="features" className="bg-[#112F5A] py-10">
           <div className="text-center">
             <h2 className="text-white text-[20px] sm:text-[44px] font-semibold">
               From Pocket to Big Screen
@@ -202,7 +204,9 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-        <div className="bg-white py-10">
+
+        {/* Plans */}
+        <div id="plans" className="bg-white py-10">
           <div className="text-center text-[#112F5A]">
             <h2 className="text-[20px] sm:text-[44px] font-semibold">
               Flexible Plans for Every Viewer
@@ -260,7 +264,11 @@ const LandingPage = () => {
               documentaries,
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 md:p-10 lg:px-20 mt-10">
+          {/* Genre */}
+          <div
+            id="genre"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 md:p-10 lg:px-20 mt-10"
+          >
             {genres.map((genre, index) => (
               <div
                 key={index}
@@ -301,7 +309,8 @@ const LandingPage = () => {
               documentaries,
             </p>
           </div>
-          <div className="max-w-4xl mx-auto px-4 mt-10 space-y-4">
+          {/* FAQs */}
+          <div id="faqs" className="max-w-4xl mx-auto px-4 mt-10 space-y-4">
             {faqs.map((faq, index) => (
               <div
                 key={index}
@@ -364,6 +373,7 @@ const LandingPage = () => {
           </div>
         </div>
 
+        {/* Footer Section */}
         <footer className="w-screen bg-[#112F5A] py-10 text-white">
           <div className="px-6 lg:px-12">
             <div className="flex flex-col md:flex-row justify-between items-start border-b border-gray-600 pb-10 mb-6">
@@ -385,25 +395,25 @@ const LandingPage = () => {
                 <div className="flex flex-col space-y-2">
                   <h4 className="text-[18px] font-medium mb-2">Home</h4>
                   <a
-                    href="#"
+                    href="#genre"
                     className="text-sm text-[#C5DDFF] hover:underline"
                   >
                     Categories
                   </a>
                   <a
-                    href="#"
+                    href="#features"
                     className="text-sm text-[#C5DDFF] hover:underline"
                   >
                     Devices
                   </a>
                   <a
-                    href="#"
+                    href="#plans"
                     className="text-sm text-[#C5DDFF] hover:underline"
                   >
                     Pricing
                   </a>
                   <a
-                    href="#"
+                    href="#faqs"
                     className="text-sm text-[#C5DDFF] hover:underline"
                   >
                     FAQ
@@ -412,25 +422,25 @@ const LandingPage = () => {
                 <div className="flex flex-col space-y-2">
                   <h4 className="text-[18px] font-medium mb-2">Movies</h4>
                   <a
-                    href="#"
+                    href="#genre"
                     className="text-sm text-[#C5DDFF] hover:underline"
                   >
                     Genres
                   </a>
                   <a
-                    href="#"
+                    href="#genre"
                     className="text-sm text-[#C5DDFF] hover:underline"
                   >
                     Trending
                   </a>
                   <a
-                    href="#"
+                    href="#genre"
                     className="text-sm text-[#C5DDFF] hover:underline"
                   >
                     New Release
                   </a>
                   <a
-                    href="#"
+                    href="#genre"
                     className="text-sm text-[#C5DDFF] hover:underline"
                   >
                     Popular
@@ -439,7 +449,7 @@ const LandingPage = () => {
                 <div className="flex flex-col space-y-2">
                   <h4 className="text-[18px] font-medium mb-2">Support</h4>
                   <a
-                    href="#"
+                    href="/login"
                     className="text-sm text-[#C5DDFF] hover:underline"
                   >
                     Contact Us
@@ -448,13 +458,13 @@ const LandingPage = () => {
                 <div className="flex flex-col space-y-2">
                   <h4 className="text-[18px] font-medium mb-2">Subscription</h4>
                   <a
-                    href="#"
+                    href="#plans"
                     className="text-sm text-[#C5DDFF] hover:underline"
                   >
                     Plans
                   </a>
                   <a
-                    href="#"
+                    href="#features"
                     className="text-sm text-[#C5DDFF] hover:underline"
                   >
                     Features
@@ -494,13 +504,13 @@ const LandingPage = () => {
             <div className="flex flex-col md:flex-row justify-between items-center text-sm text-[#8C9BB4]">
               <p>©2025 KCL Movies. All Rights Reserved</p>
               <div className="flex space-x-6 mt-4 md:mt-0">
-                <a href="#" className="hover:underline">
+                <a href="/login" className="hover:underline">
                   Terms of Use
                 </a>
-                <a href="#" className="hover:underline">
+                <a href="/login" className="hover:underline">
                   Privacy Policy
                 </a>
-                <a href="#" className="hover:underline">
+                <a href="/login" className="hover:underline">
                   Cookie Policy
                 </a>
               </div>
