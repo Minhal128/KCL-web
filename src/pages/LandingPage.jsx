@@ -21,7 +21,6 @@ import Card4 from "../assets/card_4.png";
 import free_trial from "../assets/free_trial.png";
 import Logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-
 const features = [
   {
     icon: FaMobileAlt,
@@ -149,6 +148,7 @@ const LandingPage = () => {
       <Navbar />
 
       <div className="">
+        {/* Hero */}
         <div
           style={{ background: `url(${Pattern})` }}
           className="flex justify-center items-center flex-col lg:px-8 py-20 bg-cover"
@@ -254,7 +254,8 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-        <div className="bg-[#112F5A] py-10">
+        {/* Genre */}
+        <div id="genre" className="bg-[#112F5A] py-10">
           <div className="text-center">
             <h2 className="text-white text-[20px] sm:text-[44px] font-semibold">
               Explore Every Genre, Find Your Next Favorite
@@ -264,11 +265,7 @@ const LandingPage = () => {
               documentaries,
             </p>
           </div>
-          {/* Genre */}
-          <div
-            id="genre"
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 md:p-10 lg:px-20 mt-10"
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 md:p-10 lg:px-20 mt-10">
             {genres.map((genre, index) => (
               <div
                 key={index}
@@ -285,21 +282,24 @@ const LandingPage = () => {
                   </div>
                   <div className="flex items-center justify-between">
                     <p className="">{genre.title}</p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
-                    </svg>
+                    <a href="/login">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-6 h-6"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+                      </svg>
+                    </a>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div className="bg-[#112F5A] py-10">
+        {/* FAQs */}
+        <div id="faqs" className="bg-[#112F5A] py-10">
           <div className="text-center">
             <h2 className="text-white text-[20px] sm:text-[44px] font-semibold">
               Everything You Need to Know
@@ -309,8 +309,8 @@ const LandingPage = () => {
               documentaries,
             </p>
           </div>
-          {/* FAQs */}
-          <div id="faqs" className="max-w-4xl mx-auto px-4 mt-10 space-y-4">
+
+          <div className="max-w-4xl mx-auto px-4 mt-10 space-y-4">
             {faqs.map((faq, index) => (
               <div
                 key={index}
@@ -334,7 +334,6 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-
         {/* start free trial section */}
         <div className="w-screen py-10 relative">
           <img src={free_trial} alt="" className="w-full cursor-pointer" />
