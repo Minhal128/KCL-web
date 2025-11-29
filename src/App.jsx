@@ -31,7 +31,12 @@ function App() {
 
   useEffect(() => {
     fetchUserProfile();
+<<<<<<< HEAD
   }, [fetchUserProfile]);
+=======
+  }, []);
+
+>>>>>>> eb5d3fc8e0791961036007926750490369713dc8
   return (
     <>
       <Toaster />
@@ -61,10 +66,14 @@ function App() {
                 path="categories/movie/:id"
                 element={<SingleMoviePage />}
               />
+<<<<<<< HEAD
               <Route
                 path="genre/:genre"
                 element={<GenrePage />}
               />
+=======
+              <Route path="genre/:genre" element={<TrendingPage />} />
+>>>>>>> eb5d3fc8e0791961036007926750490369713dc8
             </Route>
           </Route>
 
