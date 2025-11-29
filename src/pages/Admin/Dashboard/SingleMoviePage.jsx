@@ -108,13 +108,54 @@ const InfoView = ({ onWriteReview, content }) => (
     </div>
 );
 
-const CommentsView = () => {
-    const comments = [
+const CommentsView = ({ contentId }) => {
+    const [comments, setComments] = useState([
         { name: "Mike Newell", time: "1 hr ago", comment: "I so much love the movie, top notch", likes: 414, dislikes: 14, replies: 15, avatar: avatar },
         { name: "Michael", time: "1 hr ago", comment: "I so much love the movie, top notch. It'd have been lovely if I see my favorite actress there", likes: 414, dislikes: 14, replies: 15, avatar: avatar },
         { name: "Nicholas", time: "1 hr ago", comment: "So much joy to behold in all the series. I literally forget to go to work cos I slept off as a result of over watching, lol", likes: 414, dislikes: 14, replies: 15, avatar: avatar },
         { name: "Michael", time: "1 hr ago", comment: "I so much love the movie, top notch. It'd have been lovely if I see my favorite actress there", likes: 414, dislikes: 14, replies: 15, avatar: avatar },
-    ];
+    ]);
+    const [newComment, setNewComment] = useState('');
+    const [submitting, setSubmitting] = useState(false);
+
+    const handleSubmitComment = async () => {
+        if (!newComment.trim()) {
+            toast.error('Please enter a comment');
+            return;
+        }
+
+        try {
+            setSubmitting(true);
+            // TODO: Replace with actual API call when backend endpoint is ready
+            // await contentAPI.addComment(contentId, { comment: newComment });
+            
+            // For now, add comment locally
+            const comment = {
+                name: "You",
+                time: "Just now",
+                comment: newComment,
+                likes: 0,
+                dislikes: 0,
+                replies: 0,
+                avatar: avatar
+            };
+            setComments([comment, ...comments]);
+            setNewComment('');
+            toast.success('Comment posted successfully!');
+        } catch (error) {
+            console.error('Error posting comment:', error);
+            toast.error('Failed to post comment');
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSubmitComment();
+        }
+    };
 
     return (
         <div className=''>
@@ -150,9 +191,21 @@ const CommentsView = () => {
             <div className='mt-8 flex items-center bg-[#0F294E] rounded-md px-4 py-3'>
                 <div className='flex items-center gap-x-3 bg-[#21477C] flex-1 p-3 rounded-full'>
                     <BsEmojiSmile className='text-xl text-[#AECFFF] cursor-pointer' />
-                    <input type='text' placeholder='Type in your comment' className='flex-1 bg-transparent focus:outline-none text-white placeholder-[#AECFFF]' />
+                    <input 
+                        type='text' 
+                        placeholder='Type in your comment' 
+                        className='flex-1 bg-transparent focus:outline-none text-white placeholder-[#AECFFF]'
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        disabled={submitting}
+                    />
                 </div>
-                <button className='ml-3 text-[#129B7F] hover:text-[#4DBB9C]'>
+                <button 
+                    className='ml-3 text-[#129B7F] hover:text-[#4DBB9C] disabled:opacity-50'
+                    onClick={handleSubmitComment}
+                    disabled={submitting}
+                >
                     <BsSendFill className='text-2xl' />
                 </button>
             </div>
@@ -185,8 +238,35 @@ const RelatedMoviesView = ({ relatedMovies }) => {
     );
 };
 
-const WriteReviewModal = ({ onClose }) => {
+const WriteReviewModal = ({ onClose, contentId }) => {
     const [rating, setRating] = useState(0);
+    const [reviewText, setReviewText] = useState('');
+    const [submitting, setSubmitting] = useState(false);
+
+    const handleSubmit = async () => {
+        if (rating === 0) {
+            toast.error('Please select a rating');
+            return;
+        }
+        if (!reviewText.trim()) {
+            toast.error('Please write a review');
+            return;
+        }
+
+        try {
+            setSubmitting(true);
+            // TODO: Replace with actual API call when backend endpoint is ready
+            // await contentAPI.addReview(contentId, { rating, review: reviewText });
+            
+            toast.success('Review submitted successfully!');
+            onClose();
+        } catch (error) {
+            console.error('Error submitting review:', error);
+            toast.error('Failed to submit review');
+        } finally {
+            setSubmitting(false);
+        }
+    };
 
     return (
         <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm'>
@@ -210,13 +290,22 @@ const WriteReviewModal = ({ onClose }) => {
                         </div>
                     </div>
 
-                    <textarea placeholder='Write something' rows='2' className='w-full bg-transparent py-3 outline-none border-none resize-none text-white placeholder-[#AECFFF]'></textarea>
+                    <textarea 
+                        placeholder='Write something' 
+                        rows='2' 
+                        className='w-full bg-transparent py-3 outline-none border-none resize-none text-white placeholder-[#AECFFF]'
+                        value={reviewText}
+                        onChange={(e) => setReviewText(e.target.value)}
+                        disabled={submitting}
+                    ></textarea>
                 </div>
 
                 <button
-                    className='w-full mt-6 py-3 rounded-full text-base bg-gradient-to-r from-[#18B451] to-[#4DBB9C] hover:from-[#4DBB9C] hover:to-[#18B451] transition-all'
+                    className='w-full mt-6 py-3 rounded-full text-base bg-gradient-to-r from-[#18B451] to-[#4DBB9C] hover:from-[#4DBB9C] hover:to-[#18B451] transition-all disabled:opacity-50'
+                    onClick={handleSubmit}
+                    disabled={submitting}
                 >
-                    Submit
+                    {submitting ? 'Submitting...' : 'Submit'}
                 </button>
             </div>
         </div>
@@ -268,7 +357,7 @@ const SingleMoviePage = () => {
             case 'Related Movies':
                 return <RelatedMoviesView relatedMovies={relatedMovies} />;
             case 'Comments':
-                return <CommentsView />;
+                return <CommentsView contentId={id} />;
             case 'Info':
             default:
                 return <InfoView onWriteReview={() => setIsModalOpen(true)} content={content} />;
@@ -347,7 +436,7 @@ const SingleMoviePage = () => {
             </div>
 
             {/* Write Review Modal */}
-            {isModalOpen && <WriteReviewModal onClose={() => setIsModalOpen(false)} />}
+            {isModalOpen && <WriteReviewModal onClose={() => setIsModalOpen(false)} contentId={id} />}
         </div>
     );
 }

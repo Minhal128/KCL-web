@@ -16,6 +16,7 @@ import ProfilePage from "./pages/Admin/Dashboard/ProfilePage";
 import NotificationsPage from "./pages/Admin/Dashboard/NotificationsPage";
 import SupportPage from "./pages/Admin/Dashboard/SupportPage";
 import RegisterPage from "./pages/Auth/RegisterPage";
+import GenrePage from "./pages/Admin/Dashboard/GenrePage";
 import ForgotPage from "./pages/Auth/Forgot/ForgotPage";
 import OtpPage from "./pages/Auth/Forgot/OtpPage";
 import PasswordPage from "./pages/Auth/Forgot/PasswordPage";
@@ -30,7 +31,7 @@ function App() {
 
   useEffect(() => {
     fetchUserProfile();
-  }, []);
+  }, [fetchUserProfile]);
   return (
     <>
       <Toaster />
@@ -62,7 +63,7 @@ function App() {
               />
               <Route
                 path="genre/:genre"
-                element={<TrendingPage />}
+                element={<GenrePage />}
               />
             </Route>
           </Route>

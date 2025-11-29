@@ -90,7 +90,7 @@ const AdminHomePage = () => {
                     <div className='mt-4'>
                         <div className='flex justify-between items-center'>
                             <p>Recently Played</p>
-                            <p className='text-[#18B451] cursor-pointer'>See all</p>
+                            <Link to="/dashboard/explore"><p className='text-[#18B451] cursor-pointer'>See all</p></Link>
                         </div>
                         <div className='w-full overflow-x-auto flex gap-4 items-center'>
                             {recentContent.length > 0 ? (
@@ -222,9 +222,11 @@ const AdminHomePage = () => {
                     <div className='mt-4'>
                         <div className='flex justify-between items-center'>
                             <p>Categories</p>
-                            <p className='text-[#18B451] cursor-pointer'>See all</p>
+                            <Link to="/dashboard/categories"><p className='text-[#18B451] cursor-pointer'>See all</p></Link>
                         </div>
-                        <img src={categories} alt="" />
+                        <Link to="/dashboard/categories">
+                            <img src={categories} alt="" className="cursor-pointer" />
+                        </Link>
                     </div>
                 </div>
 

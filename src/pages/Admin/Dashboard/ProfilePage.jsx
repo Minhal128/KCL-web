@@ -498,9 +498,12 @@ const ProfilePage = () => {
         {/* Profile Header */}
         <div className="flex items-center space-x-3 pb-6 border-b border-[#21477C] cursor-pointer">
           <img
-            src={user?.avatar}
+            src={user?.avatar || avatar}
             alt="User Avatar"
-            className="w-12 h-12 rounded-full object-cover"
+            className="w-12 h-12 rounded-full object-cover bg-[#21477C]"
+            onError={(e) => {
+              e.target.src = avatar;
+            }}
           />
           <div className="flex-1">
             <p className="font-semibold text-lg">{user?.name}</p>

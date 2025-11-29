@@ -7,6 +7,7 @@ import { IoMdPerson } from "react-icons/io";
 import moview_bg from "../../assets/auth/moview_bg.png";
 import axios from "axios";
 import { VITE_SERVER } from "../../constants/config.js";
+import countries from "world-countries";
 
 import { useUser } from "../../context/UserContext.jsx";
 
@@ -15,11 +16,12 @@ import { useUser } from "../../context/UserContext.jsx";
 
 // --- Configuration Data ---
 const availableAvatars = [
-  { id: 1, src: "https://placehold.co/40x40/f44336/white?text=A1" },
-  { id: 2, src: "https://placehold.co/40x40/2196f3/white?text=A2" },
-  { id: 3, src: "https://placehold.co/40x40/ffeb3b/black?text=A3" },
-  { id: 4, src: "https://placehold.co/40x40/4caf50/white?text=A4" },
-  { id: 5, src: "https://placehold.co/40x40/9c27b0/white?text=A5" },
+  { id: 1, src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" },
+  { id: 2, src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka" },
+  { id: 3, src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Luna" },
+  { id: 4, src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Max" },
+  { id: 5, src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie" },
+  { id: 6, src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Oliver" },
 ];
 
 const interestOptions = [
@@ -107,16 +109,13 @@ const Step1PersonalInfo = ({ onContinue, data, setData }) => (
             <option value="" disabled className="bg-[#1C365A]">
               Choose your country
             </option>
-            <option value="USA" className="bg-[#1C365A]">
-              United States
-            </option>
-            <option value="CAN" className="bg-[#1C365A]">
-              Canada
-            </option>
-            <option value="UK" className="bg-[#1C365A]">
-              United Kingdom
-            </option>
-            {/* Add more countries */}
+            {countries
+              .sort((a, b) => a.name.common.localeCompare(b.name.common))
+              .map((country) => (
+                <option key={country.cca3} value={country.cca3} className="bg-[#1C365A]">
+                  {country.name.common}
+                </option>
+              ))}
           </select>
           <BsChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#AECFFF] pointer-events-none" />
         </div>
@@ -154,7 +153,11 @@ const Step2Avatar = ({ onContinue, data, setData }) => {
   const fileRef = useRef(null);
 
   const handleAvatarSelect = (avatarSrc) => {
-    setData((prev) => ({ ...prev, profilePicture: avatarSrc }));
+    setData((prev) => ({ 
+      ...prev, 
+      profilePicture: avatarSrc,
+      avatarFile: true // Mark that an avatar has been selected
+    }));
   };
 
   return (
@@ -233,8 +236,16 @@ const Step2Avatar = ({ onContinue, data, setData }) => {
 
       <button
         type="button"
-        className="w-full bg-gradient-to-r from-[#12B037] to-[#18B451] text-white py-3 rounded-full text-md font-medium shadow-[0_11px_29px_0_rgba(20,169,144,0.3)] hover:opacity-90 transition-opacity"
-        onClick={onContinue}
+        className={`w-full py-3 rounded-full text-md font-medium shadow-[0_11px_29px_0_rgba(20,169,144,0.3)] transition-opacity ${
+          data.profilePicture
+            ? "bg-gradient-to-r from-[#12B037] to-[#18B451] text-white hover:opacity-90 cursor-pointer"
+            : "bg-gray-600 text-gray-400 cursor-not-allowed opacity-50"
+        }`}
+        onClick={() => {
+          if (data.profilePicture) {
+            onContinue();
+          }
+        }}
         disabled={!data.profilePicture}
       >
         Continue
@@ -416,8 +427,21 @@ const RegisterPage = () => {
       formDataToSend.append("dateOfBirth", formData.dob);
 
       // Add avatar file
-      if (formData.avatarFile) {
+      if (formData.avatarFile instanceof File) {
+        // If it's a File object (uploaded image), use it directly
         formDataToSend.append("avatar", formData.avatarFile);
+      } else if (formData.profilePicture) {
+        // For preset avatars, fetch the image and convert to File
+        try {
+          const response = await fetch(formData.profilePicture);
+          const blob = await response.blob();
+          const file = new File([blob], "avatar.png", { type: "image/png" });
+          formDataToSend.append("avatar", file);
+        } catch (fetchError) {
+          console.error("Error fetching avatar:", fetchError);
+          alert("Error processing avatar. Please try again.");
+          return;
+        }
       } else {
         alert("Please upload or select an avatar before continuing.");
         return;

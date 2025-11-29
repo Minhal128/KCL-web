@@ -1,1 +1,1 @@
-export const VITE_SERVER = import.meta.env.VITE_SERVER;
+export const VITE_SERVER = import.meta.env.VITE_SERVER || "https://kclbackend.vercel.app/api/v1";
