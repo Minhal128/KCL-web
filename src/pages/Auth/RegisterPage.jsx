@@ -7,8 +7,12 @@ import { IoMdPerson } from "react-icons/io";
 import moview_bg from "../../assets/auth/moview_bg.png";
 import axios from "axios";
 import { VITE_SERVER } from "../../constants/config.js";
+<<<<<<< HEAD
 import countries from "world-countries";
 
+=======
+import countries from "../../constants/countries.json";
+>>>>>>> eb5d3fc8e0791961036007926750490369713dc8
 import { useUser } from "../../context/UserContext.jsx";
 
 // Assuming these imports are available and correct
@@ -109,6 +113,7 @@ const Step1PersonalInfo = ({ onContinue, data, setData }) => (
             <option value="" disabled className="bg-[#1C365A]">
               Choose your country
             </option>
+<<<<<<< HEAD
             {countries
               .sort((a, b) => a.name.common.localeCompare(b.name.common))
               .map((country) => (
@@ -116,6 +121,14 @@ const Step1PersonalInfo = ({ onContinue, data, setData }) => (
                   {country.name.common}
                 </option>
               ))}
+=======
+            {countries.map((c) => (
+              <option key={c.code} value={c.code}>
+                {c.name}
+              </option>
+            ))}
+            {/* Add more countries */}
+>>>>>>> eb5d3fc8e0791961036007926750490369713dc8
           </select>
           <BsChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#AECFFF] pointer-events-none" />
         </div>

@@ -17,10 +17,18 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-4">
-          <p className="hover: transition">Movies</p>
-          <p className="hover: transition">Tv Series</p>
-          <p className="hover: transition">Support</p>
-          <p className="hover: transition">Contact</p>
+          <a href="#genre" className="hover: transition">
+            Movies
+          </a>
+          <a href="#genre" className="hover: transition">
+            Tv Series
+          </a>
+          <a href="#" className="hover: transition">
+            Support
+          </a>
+          <a href="#" className="hover: transition">
+            Contact
+          </a>
         </div>
 
         <Link to={"/login"}>
